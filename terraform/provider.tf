@@ -9,8 +9,8 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "rady-bucket-1-0-0-0"
-    key    = "dags/myfile"
+    bucket = "public-tfpstate-rady-bucket"
+    key    = "tfstate"
     region = "us-east-1"
   }
 }
