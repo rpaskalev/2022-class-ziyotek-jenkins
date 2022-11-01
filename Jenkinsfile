@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Prep') {
             steps {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('Build') {
             steps {
                 sh '''
                 terraform init
@@ -17,8 +17,17 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh '''
+                echo 'Deploying terraform infrastructure'
+                cd terraform
+                terraform apply -auto-approve
+                '''
             }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
